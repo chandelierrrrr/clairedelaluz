@@ -6,7 +6,7 @@
     <title>Sol's Profile & Interests</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             background-color: #d4e4c4;
             display: flex;
             flex-direction: column;
@@ -20,53 +20,76 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 350px;
+            width: 90%;
+            max-width: 400px;
             text-align: center;
             display: none;
+            transition: opacity 0.3s ease-in-out;
         }
         .profile-card.active, .container.active {
             display: block;
+            animation: fadeIn 0.5s ease-in-out;
         }
         .profile-pic {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid #a67b5b;
+            animation: bounceIn 0.6s ease-in-out;
         }
         .username {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
             color: #5c3d2e;
         }
         .bio {
-            font-size: 14px;
+            font-size: 16px;
             color: #665c54;
             margin-top: 10px;
+            animation: fadeIn 0.6s ease-in-out;
         }
         .buttons {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             margin-top: 15px;
         }
         .btn {
             background: #a67b5b;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 20px;
             border-radius: 10px;
             color: white;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
             transition: 0.3s;
             text-decoration: none;
         }
         .btn:hover {
             background: #8b6347;
+            animation: pulse 0.6s infinite;
         }
         .btn:active {
             animation: bounce 0.3s;
         }
         @keyframes bounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @keyframes bounceIn {
+            0%, 20%, 40%, 60%, 80%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes slideIn {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+        @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
@@ -83,10 +106,36 @@
         .play-btn {
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 24px;
             cursor: pointer;
             color: #a67b5b;
             text-decoration: none;
+        }
+        .social-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .social-btn {
+            background: #3b5998;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .social-btn:hover {
+            background: #2d4373;
+        }
+        .info:hover {
+            background: #b8d9a0;
+            transition: 0.2s;
+        }
+        .info.dislike:hover {
+            background: #d99c9c;
         }
         h1 {
             font-size: 24px;
@@ -128,16 +177,17 @@
     <div class="profile-card active" id="profile">
         <img src="https://i.pinimg.com/736x/a7/f8/52/a7f8529907f7ac7a18bb83503e90c869.jpg" alt="Profile Picture" class="profile-pic">
         <div class="username">Sol ★ @clairdeluz</div>
-        <div class="bio"> Christian, 16, hispanic<br>Jesus loves you!!!</div>
+        <div class="bio">Christian, 16, hispanic<br>Jesus loves you!!!</div>
         <div class="bio">• what is essential is invisible to the eye •</div>
         <div class="buttons">
             <button class="btn" onclick="showPage('profile')">HOME</button>
             <button class="btn" onclick="showPage('interests')">INTERESTS</button>
+            <button class="btn" onclick="showPage('social')">SOCIAL</button>
         </div>
         <div class="music-player">
             <img src="https://i.pinimg.com/736x/e9/43/1a/e9431acbc2d01fcfa8880519b3585ff6.jpg" alt="Bored - Laufey" class="song-thumbnail">
             <span>Bored - Laufey</span>
-            <a href="https://open.spotify.com/track/2SPbioo65CuUB3H0aW1ID5?si=0d889b8655ce47e5" target="_blank" class="play-btn">▶</a>
+            <a href="https://open.spotify.com/track/2SPbioo65CuUB3H0aW1ID5?si=0d889b8655ce47e5" target="_blank" class="play-btn" aria-label="Play Bored by Laufey">▶</a>
         </div>
     </div>
 
@@ -154,10 +204,7 @@
         <div class="dislikes">
             <strong>(·•᷄_•᷅ )</strong>
             <div class="info dislike">Hate</div>
-            <div class="info dislike">avocados</div>
-            <div class="info dislike">avocados</div>
-            <div class="info dislike">🥑</div>
-            <div class="info dislike">AVOCADOS!!!</div>
+            <div class="info dislike">Avocados</div>
         </div>
         <div class="buttons">
             <button class="btn" onclick="showPage('profile')">HOME</button>
@@ -165,11 +212,24 @@
         </div>
     </div>
 
+    <div class="container" id="social">
+        <h1>Where to find me...</h1>
+        <div class="social-list">
+            <p><strong>Pinterest, Roblox & Discord:</strong> @clairdelaluz</p>
+        </div>
+        <button class="btn" onclick="showPage('profile')">BACK</button>
+    </div>
+
     <script>
         function showPage(pageId) {
-            document.getElementById('profile').classList.remove('active');
-            document.getElementById('interests').classList.remove('active');
-            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.profile-card, .container').forEach(el => {
+                el.style.opacity = '0';
+                setTimeout(() => el.classList.remove('active'), 300);
+            });
+            setTimeout(() => {
+                document.getElementById(pageId).classList.add('active');
+                document.getElementById(pageId).style.opacity = '1';
+            }, 300);
         }
     </script>
 </body>
